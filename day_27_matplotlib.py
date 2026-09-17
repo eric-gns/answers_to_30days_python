@@ -14,7 +14,7 @@ plt.xlabel('Number of Quotes')
 plt.grid(axis= 'x', linestyle='--')
 plt.ylabel('Authors')
 plt.show()# ==============================================================================
-# 30 DAYS OF PYTHON - DAY 27: DATAFRAME VISUALIZATION & PIPELINE INTEGRATION
+# 30 DAYS OdF PYTHON - DAY 27: DATAFRAME VISUALIZATION & PIPELINE INTEGRATION
 # CODE COMPILATION
 # ==============================================================================
 

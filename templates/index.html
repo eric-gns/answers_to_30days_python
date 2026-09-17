@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quotes App</title>
+</head>
+<body>
+    <h1>Quotes!</h1> 
+
+    <!-- Navigation Link to Add Quote Form -->
+    <a href="{{ url_for('add_quote') }}">Add a New Quote</a>
+    <hr>
+
+    <!-- Loop Through Quotes Collection -->
+    <div>
+    {% for quote in quotes %}
+        <p>"{{ quote.quote }}"</p>
+        <p>- <strong>{{ quote.author }}</strong></p>
+
+        <!-- Inline Form for Deleting This Specific Quote -->
+        <form method="POST" action="{{ url_for('delete_quote_ui', quote_id=quote._id) }}">
+            <button type="submit">Delete Quote</button>
+        </form>
+        <hr>
+    {% else %}
+        <p>No quotes found yet!</p>
+    {% endfor %}
+    </div>
+</body>
+</html>
