@@ -2,12 +2,20 @@ from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from flask import Flask, redirect, render_template, request, url_for
 import pymongo
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()  # Load environment variables from .env file
 app = Flask(__name__)
 
 # Connect to MongoDB
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["quotes_db"]
+# Best Practice Pattern
+mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+db_name = os.getenv("DB_NAME", "quotes_db")
+
+client = pymongo.MongoClient(mongo_uri)
+db = client[db_name]
 collection = db["quotes"]
 
 
@@ -53,6 +61,9 @@ def delete_quote_ui(quote_id):
 
   return redirect(url_for("home"))
 
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template("404.html"), 404
 
 if __name__ == "__main__":
-  app.run(debug=True, port=5000)
+  app.run(debug=os.getenv("DEBUG") == "True", port=int(os.getenv("PORT")))
